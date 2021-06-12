@@ -19,13 +19,13 @@
     <h1>Flight Delay Predictor</h1>
        <h3> Enter the following values to predict a delay when flying domestically out of Chicago O'Hare International Airport (ORD)</h3>
   
-       <!-- Main Input For Receiving Query to our ML -->
+       <!-- Main Input for Receiving Query to our ML Model -->
       <form action="{{ url_for('predict')}}"method="post">
-        <input type="text" name="enginesize" placeholder="Engine Size" required="required" />
-          <input type="text" name="cylinders" placeholder="Cylinders" required="required" />
-      <input type="text" name="fuel" placeholder="Fuel" required="required" />
+        <input type="text" name="departure" placeholder="Departure Time" required="required" />
+        <input type="text" name="airport" placeholder="Airport Code" required="required" />
+        <input type="text" name="month" placeholder="Month" required="required" />
   
-          <button type="submit" class="btn">Predict</button>
+        <button type="submit" class="btn">Predict</button>
       </form>
   
      <br>
