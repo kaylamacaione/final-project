@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Flight Delay Predictor</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <!-- Local CSS stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+  <div class="login">
+    <h1>Flight Delay Predictor</h1>
+       <h3> Enter the following values to predict a delay when flying domestically out of Chicago O'Hare International Airport (ORD)</h3>
+  
+       <!-- Main Input For Receiving Query to our ML -->
+      <form action="{{ url_for('predict')}}"method="post">
+        <input type="text" name="enginesize" placeholder="Engine Size" required="required" />
+          <input type="text" name="cylinders" placeholder="Cylinders" required="required" />
+      <input type="text" name="fuel" placeholder="Fuel" required="required" />
+  
+          <button type="submit" class="btn">Predict</button>
+      </form>
+  
+     <br>
+     <br>
+     {{ prediction_text }}
+  
+   </div>
+
+  <!-- Footer -->
+  <div id="footer">
+    <p>&copy; 2021 Allison Patnoe, Junette Lee, Kayla Macaione</p>
+  </div>
+
+  <!-- Local JS app file -->
+  <!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
+  
+</body>
+
+</html>
