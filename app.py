@@ -76,26 +76,54 @@ def dest_airports():
 @app.route('/predict',methods=['POST'])
 def predict():
 
-    # results = db.session.query(Destinations.primary_id, Destinations.DEST, Destinations.DISTANCE, Destinations.airport_name, Destinations.dest_longitude, Destinations.dest_latitude).all()
+    results = db.session.query(Destinations.primary_id, Destinations.DEST, Destinations.DISTANCE, Destinations.airport_name, Destinations.dest_longitude, Destinations.dest_latitude).all()
 
     # To render results on HTML GUI
     # form_values = [float(x) for x in request.form.values()]
-    # form_values = [x for x in request.form.values()]
+    form_values = [x for x in request.form.values()]
 
-    form_values = request.form['user-input']
     # test = request.args
-    print(form_values)
+    # print(form_values)
 
     # if form_values
+    dest_data = []
+    airports_data = []
 
+    # Loop through query results and assign key value pairs for each row
+    for result in results:
+        dict2 = collections.OrderedDict()
+        dict2["primary_id"] = result[0]
+        dict2["DEST"] = result[1]
+        dict2["DISTANCE"] = result[2]
+        dict2["airport_name"] = result[3]
+        dict2["dest_longitude"] = result[4]
+        dict2["dest_latitude"] = result[5]
+        dest_data.append(dict2)
+        airports_only = collections.OrderedDict()
+        airports_only = result[1]
+        airports_data.append(airports_only)
 
-    # values_to_model = [np.array(form_values)]
-    # prediction = model.predict(form_values)
+    dest_val = []
+    for i in range(1,(len(airports_data))):
+        if dest_data[i]['DEST'] == form_values[0]:
+            dest_val.append(dest_data[i]['DISTANCE'])
+            dest_val.append(dest_data[i]['dest_longitude'])
+            dest_val.append(dest_data[i]['dest_latitude'])
+
+    predict_array = []
+    predict_array.append(form_values[2])
+    predict_array.append(dest_val[0])
+    predict_array.append(dest_val[1])
+    predict_array.append(dest_val[2])
+    predict_array.append(form_values[1])
+    
+
+    prediction = model.predict([np.array(predict_array)])
     # output = prediction[0] 
 
     ################################################# UPDATE THIS LATER
-    # return render_template('index.html', prediction_text='Delay Prediction: {}'.format(output))
-    return render_template('index.html', prediction_text={form_values})
-
+    
+    return render_template('index.html',prediction_text = [prediction])
+    
 if __name__ == "__main__":
     app.run()
