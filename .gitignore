@@ -1,5 +1,6 @@
 # Data files
 *.csv
+*.zip
 # *.sqlite
 
 # Byte-compiled / optimized / DLL files
