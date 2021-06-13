@@ -1,26 +1,29 @@
 # Import libraries
 import os
 import collections
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import (Flask, render_template, jsonify, request, redirect)
 from flask_sqlalchemy import SQLAlchemy
 import pickle
+import numpy as np
 
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
+
 model = pickle.load(open('model.pkl', 'rb'))
+
 
 #################################################
 # Database Setup
 #################################################
 
 # Define database URI
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///dest_airports.sqlite"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data/dest_airports.sqlite"
 
 db = SQLAlchemy(app)
 
-# Define database table and column attributes
+# Define database table attributes
 class Destinations(db.Model):
     __tablename__ = 'dest_airports'
 
@@ -33,6 +36,12 @@ class Destinations(db.Model):
 
     def __repr__(self):
         return '<Destinations %r>' % (self.name)
+
+
+
+#################################################
+# App Routes
+#################################################
 
 # Flask route that renders index.html template
 @app.route("/")
@@ -64,15 +73,17 @@ def dest_airports():
 def predict():
 
     # To render results on HTML GUI
-    int_features = [float(x) for x in request.form.values()]
+    form_values = [float(x) for x in request.form.values()]
 
-    final_features = [np.array(int_features)]
 
-    prediction = model.predict(final_features)
-    output = round(prediction[0], 2) 
 
-    ################################################## UPDATE THIS LATER
-    return render_template('index.html', prediction_text='CO2 Emission of the vehicle is :{}'.format(output))
+
+    values_to_model = [np.array(form_values)]
+    prediction = model.predict(values_to_model)
+    output = prediction[0] 
+
+    ################################################# UPDATE THIS LATER
+    return render_template('index.html', prediction_text='Prediction :{}'.format(output))
 
 if __name__ == "__main__":
     app.run()
