@@ -20,8 +20,8 @@ model = pickle.load(open('model.pkl', 'rb'))
 #################################################
 
 # Define database URI
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data/dest_airports.sqlite" 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data/dest_airports.sqlite"
 
 db = SQLAlchemy(app)
 
