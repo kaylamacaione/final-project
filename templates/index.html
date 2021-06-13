@@ -17,22 +17,33 @@
 <body>
   <div class="login">
     <h1>Flight Delay Predictor</h1>
-       <h3> Enter the following values to predict a delay when flying domestically out of Chicago O'Hare International Airport (ORD)</h3>
+    <h3>Enter the following values to predict a delay when flying domestically out of Chicago O'Hare International Airport (ORD)</h3>
+
+    <!-- Input for Receiving Query to ML Model -->
+    <form action="{{ url_for('predict')}}"method="post">
+
+      <label for="airport">Destination Airport Code</label>
+      <input type="text" name="airport" placeholder="LAX" required="required"
+      size="3" maxlength="3"/>
+
+      <label for="month">Departure Month (Numerical)</label>
+      <input type="number" name="month" placeholder="1" required="required"
+      value="6" min="1" max="12" />
+
+      <label for="time">Departure Time (24-Hour Clock)</label>
+      <input type="number" name="time" required="required" 
+      value="1200" min="0000" max="2400" step="100" />
+
+      <button type="submit" class="btn">Predict</button>
+    </form>
   
-       <!-- Main Input for Receiving Query to our ML Model -->
-      <form action="{{ url_for('predict')}}"method="post">
-        <input type="text" name="departure" placeholder="Departure Time" required="required" />
-        <input type="text" name="airport" placeholder="Airport Code" required="required" />
-        <input type="text" name="month" placeholder="Month" required="required" />
+    <br>
+    <br>
+    {{ prediction_text }}
+    <br>
+    <br>
   
-        <button type="submit" class="btn">Predict</button>
-      </form>
-  
-     <br>
-     <br>
-     {{ prediction_text }}
-  
-   </div>
+  </div>
 
   <!-- Footer -->
   <div id="footer">
@@ -40,8 +51,8 @@
   </div>
 
   <!-- Local JS app file -->
-  <!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
-
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  
   <!-- D3 JS-->
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <!-- Plotly -->
@@ -58,8 +69,6 @@
   <script src=https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js></script>
   <!-- API key -->
   <script type="text/javascript" src="static/js/config.js"></script>
-  <!-- Local JS app file -->
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   
 </body>
 

@@ -1,23 +1,19 @@
 # Import libraries
 import os
 import collections
-from flask import (
-    Flask,
-    render_template,
-    jsonify,
-    request,
-    redirect)
+from flask import Flask, render_template, jsonify, request, redirect
+from flask_sqlalchemy import SQLAlchemy
+import pickle
 
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
+model = pickle.load(open('model.pkl', 'rb'))
 
 #################################################
 # Database Setup
 #################################################
-
-from flask_sqlalchemy import SQLAlchemy
 
 # Define database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///dest_airports.sqlite"
@@ -45,7 +41,7 @@ def home():
 
 # Flask route to query data from SQLite database and output in json format
 @app.route("/api/dest_airports")
-def olympics():
+def dest_airports():
     results = db.session.query(Destinations.primary_id, Destinations.DEST, Destinations.DISTANCE, Destinations.airport_name, Destinations.dest_longitude, Destinations.dest_latitude).all()
 
     airport_data = []
@@ -61,24 +57,22 @@ def olympics():
         dict["dest_latitude"] = result[5]
         airport_data.append(dict)
 
-    # Loop through query results and assign variables to each series
-    # primary_id = [result[0] for result in results]
-    # NOC = [result[1] for result in results]
-    # Region = [result[2] for result in results]
-    # Medal = [result[3] for result in results]
-    # Year = [result[4] for result in results]
-
-    # Assign key value pairs to data series
-    # olympics_data = [{
-    #     "primary_id": primary_id,
-    #     "NOC": NOC,
-    #     "Region": Region,
-    #     "Medal": Medal,
-    #     "Year": Year
-    # }]
-    
     return jsonify(airport_data)
 
+# Flask route to use predict button in app
+@app.route('/predict',methods=['POST'])
+def predict():
+
+    # To render results on HTML GUI
+    int_features = [float(x) for x in request.form.values()]
+
+    final_features = [np.array(int_features)]
+
+    prediction = model.predict(final_features)
+    output = round(prediction[0], 2) 
+
+    ################################################## UPDATE THIS LATER
+    return render_template('index.html', prediction_text='CO2 Emission of the vehicle is :{}'.format(output))
 
 if __name__ == "__main__":
     app.run()
