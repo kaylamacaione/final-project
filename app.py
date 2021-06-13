@@ -3,9 +3,12 @@ import os
 import collections
 from flask import (Flask, render_template, jsonify, request, redirect)
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
 import pickle
 import numpy as np
 import pandas as pd
+
 
 #################################################
 # Flask Setup
@@ -20,8 +23,8 @@ model = pickle.load(open('model.pkl', 'rb'))
 #################################################
 
 # Define database URI
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data/dest_airports.sqlite"
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data/dest_airports.sqlite"
 
 db = SQLAlchemy(app)
 
@@ -38,7 +41,6 @@ class Destinations(db.Model):
 
     def __repr__(self):
         return '<Destinations %r>' % (self.name)
-
 
 
 #################################################
