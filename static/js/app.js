@@ -1,18 +1,22 @@
 // Data file path
 const url = "/api/dest_airports";
+// const url = "https://flight-delay-predictor-ord.herokuapp.com/api/dest_airports";
 
-// test data read as needed
-// olympicsData.then(row => {
-//   console.log(row);
-// });
+console.log(url)
 
 // Assign d3.json to variable
 const airportData = d3.json(url);
 
+// test data read as needed
+airportData.then(row => {
+  console.log(row);
+});
+
+
 // Create reference variables
-const dropdownElement = d3.select("#selYear");
-const yearElement = d3.select("#Year");
-const nocDropdownElement = d3.select("#selNOC");
+const airportCodesElement = d3.select("#airportCodes");
+const monthElement = d3.select("#selMonth");
+const timeElement = d3.select("#selTime");
 
 // #########################################
 // Initialize charts and dropdowns
@@ -22,29 +26,25 @@ function init() {
 
   // get data
   airportData.then(function(response) {
-    console.log("Airport Data:", response);
 
     // // create Sets to avoid duplicates
-    // let years = new Set();
-    // let regions = new Set();
+    let codes = new Set();
 
-    // // Pull out elements for dropdowns
-    // response.forEach((row) => {
-    //   years.add(row.Year);
-    //   regions.add(row.Region);
-    // });
+    // Pull out elements for dropdowns
+    response.forEach((row) => {
+      codes.add(row.DEST);
+    });
 
-    // // create Arrays to sort 
-    // var sortedYears = Array.from(years).sort();
-    // var sortedRegions = Array.from(regions).sort();
+    // create Arrays to sort 
+    var codesArray = Array.from(codes).sort();
 
-    // // populate year dropdown element
-    // sortedYears.forEach(year => {dropdownElement
-    //   .append("option")
-    //   .text(year)
-    //   .property("value", year)
-    // });
-    // // console.log("sortedYears", sortedYears);
+    // populate airport dropdown element
+    codesArray.forEach(code => {airportCodesElement
+      .append("option")
+      .text(code)
+      .property("value", code)
+    });
+    console.log("codesArray", codesArray);
 
     // // populate region dropdown element
     // sortedRegions.forEach(row => {nocDropdownElement
