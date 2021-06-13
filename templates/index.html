@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Flight Delay Predictor</title>
+  <!-- D3 JS-->
+  <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
@@ -22,18 +24,19 @@
     <!-- Input for Receiving Query to ML Model -->
     <form action="{{ url_for('predict')}}"method="post">
 
-      <label for="airport">Destination Airport Code</label>
-      <input type="text" name="airport" placeholder="LAX" required="required"
-      size="3" maxlength="3"/>
+      <label for="airport">Destination Airport</label>
+      <input list="airport" name="airport" id="selAirport" placeholder="LAX" required="required" />
+        <datalist id="airportCodes">
+        </datalist>
 
       <label for="month">Departure Month (Numerical)</label>
-      <input type="number" name="month" placeholder="1" required="required"
+      <input type="number" name="month" id="selMonth" placeholder="1" required="required"
       value="6" min="1" max="12" />
 
       <label for="time">Departure Time (24-Hour Clock)</label>
-      <input type="number" name="time" required="required" 
+      <input type="number" name="time" id="selTime" required="required" 
       value="1200" min="0000" max="2400" step="100" />
-
+      <br>
       <button type="submit" class="btn">Predict</button>
     </form>
   
@@ -52,23 +55,20 @@
 
   <!-- Local JS app file -->
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-  
-  <!-- D3 JS-->
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <!-- Plotly -->
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
   <!-- Bootstrap JS -->
-  <!-- <script src="https://stackpsath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  
+  <!-- Plotly -->
+  <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
   <!-- D3-tip -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script> -->
   <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="crossorigin=""></script>
+  <!-- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="crossorigin=""></script> -->
   <!-- Lodash JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script> -->
   <!-- Chart JS -->
-  <script src=https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js></script>
-  <!-- API key -->
-  <script type="text/javascript" src="static/js/config.js"></script>
+  <!-- <script src=https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js></script> -->
   
 </body>
 
