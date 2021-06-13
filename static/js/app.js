@@ -19,7 +19,7 @@ const monthElement = d3.select("#selMonth");
 const timeElement = d3.select("#selTime");
 
 // #########################################
-// Initialize charts and dropdowns
+// Fill dropdown
 // #########################################
 
 function init() {
@@ -45,28 +45,6 @@ function init() {
       .property("value", code)
     });
     console.log("codesArray", codesArray);
-
-    // // populate region dropdown element
-    // sortedRegions.forEach(row => {nocDropdownElement
-    //   .append("option")
-    //   .text(row)
-    //   .property("value", row)
-    // });
-    // // console.log("sortedRegions", sortedRegions);
-
-    // // Set default year
-    // var filterYear = sortedYears[0];
-    // console.log("Default Year:", filterYear);
-
-    // // Set default region
-    // // var filterRegion = sortedRegions[0];
-    // var filterRegion = "USA";
-    // console.log("Default Region:", filterRegion);
-    
-    // // Default charts
-    // barTwo(filterYear);
-    // getMetadata(filterRegion, filterYear);
-    // buildPolarChart(filterRegion, filterYear);
 
   });
 };
