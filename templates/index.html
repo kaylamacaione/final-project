@@ -25,9 +25,7 @@
     <form action="{{ url_for('predict')}}"method="post">
 
       <label for="airport">Destination Airport</label>
-      <input list="airport" name="airport" id="selAirport" placeholder="LAX" required="required" />
-        <datalist id="airportCodes">
-        </datalist>
+      <select list="airport" name="airport" id="airportCodes" required="required"></select>
 
       <label for="month">Departure Month (Numerical)</label>
       <input type="number" name="month" id="selMonth" placeholder="1" required="required"
@@ -36,7 +34,7 @@
       <label for="time">Departure Time (24-Hour Clock)</label>
       <input type="number" name="time" id="selTime" required="required" 
       value="1200" min="0000" max="2400" step="100" />
-      <br>
+
       <button type="submit" class="btn">Predict</button>
     </form>
   

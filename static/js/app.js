@@ -1,7 +1,6 @@
 // Data file path
 const url = "/api/dest_airports";
 // const url = "https://flight-delay-predictor-ord.herokuapp.com/api/dest_airports";
-
 console.log(url)
 
 // Assign d3.json to variable
