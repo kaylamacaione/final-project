@@ -6,11 +6,10 @@ console.log(url)
 // Assign d3.json to variable
 const airportData = d3.json(url);
 
-// test data read as needed
-airportData.then(row => {
-  console.log(row);
-});
-
+// // test data read as needed
+// airportData.then(row => {
+//   console.log(row);
+// });
 
 // Create reference variables
 const airportCodesElement = d3.select("#airportCodes");
@@ -43,7 +42,7 @@ function init() {
       .text(code)
       .property("value", code)
     });
-    console.log("codesArray", codesArray);
+    // console.log("codesArray", codesArray);
 
   });
 };
