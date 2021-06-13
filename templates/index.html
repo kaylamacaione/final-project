@@ -22,7 +22,7 @@
     <h3>Enter the following values to predict a delay when flying domestically out of Chicago O'Hare International Airport (ORD)</h3>
 
     <!-- Input for Receiving Query to ML Model -->
-    <form action="{{ url_for('predict')}}"method="post">
+    <form action="{{ url_for('predict')}}" method="post" id="user-input">
 
       <label for="airport">Destination Airport</label>
       <select list="airport" name="airport" id="airportCodes" required="required"></select>
@@ -40,7 +40,7 @@
   
     <br>
     <br>
-    {{ prediction_text }}
+    <h3>{{ prediction_text }}</h3>
     <br>
     <br>
   

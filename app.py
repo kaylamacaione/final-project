@@ -5,6 +5,7 @@ from flask import (Flask, render_template, jsonify, request, redirect)
 from flask_sqlalchemy import SQLAlchemy
 import pickle
 import numpy as np
+import pandas as pd
 
 #################################################
 # Flask Setup
@@ -72,18 +73,26 @@ def dest_airports():
 @app.route('/predict',methods=['POST'])
 def predict():
 
+    # results = db.session.query(Destinations.primary_id, Destinations.DEST, Destinations.DISTANCE, Destinations.airport_name, Destinations.dest_longitude, Destinations.dest_latitude).all()
+
     # To render results on HTML GUI
-    form_values = [float(x) for x in request.form.values()]
+    # form_values = [float(x) for x in request.form.values()]
+    # form_values = [x for x in request.form.values()]
+
+    form_values = request.form['user-input']
+    # test = request.args
+    print(form_values)
+
+    # if form_values
 
 
-
-
-    values_to_model = [np.array(form_values)]
-    prediction = model.predict(values_to_model)
-    output = prediction[0] 
+    # values_to_model = [np.array(form_values)]
+    # prediction = model.predict(form_values)
+    # output = prediction[0] 
 
     ################################################# UPDATE THIS LATER
-    return render_template('index.html', prediction_text='Prediction :{}'.format(output))
+    # return render_template('index.html', prediction_text='Delay Prediction: {}'.format(output))
+    return render_template('index.html', prediction_text={form_values})
 
 if __name__ == "__main__":
     app.run()

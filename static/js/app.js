@@ -1,5 +1,7 @@
-// Data file path
+// Local URL
 const url = "/api/dest_airports";
+
+// Deployed URL
 // const url = "https://flight-delay-predictor-ord.herokuapp.com/api/dest_airports";
 console.log(url)
 
