@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 import pickle
 import numpy as np
 import pandas as pd
+import psycopg2
 
 #################################################
 # Flask Setup
