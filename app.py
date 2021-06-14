@@ -3,12 +3,9 @@ import os
 import collections
 from flask import (Flask, render_template, jsonify, request, redirect)
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
 import pickle
 import numpy as np
 import pandas as pd
-
 
 #################################################
 # Flask Setup
@@ -22,9 +19,18 @@ model = pickle.load(open('model.pkl', 'rb'))
 # Database Setup
 #################################################
 
+# Copy sqlite db to Heroku postgres db
+conn = psycopg2.connect("dbname=d3t65gq78h8nju user=judwspdyelwnak password=7b528107aef301274632995ee3f5ec88ebd77d76c18c935ab3f16a30eb2f3f7b")
+cur = conn.cursor()
+with open('sqlite:///data/dest_airports.sqlite', 'r') as f:
+    # Skip the header row
+    next(f)
+    cur.copy_from(f, 'dest_airports', sep=',')
+conn.commit()
+
 # Define database URI
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data/dest_airports.sqlite"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data/dest_airports.sqlite"
 
 db = SQLAlchemy(app)
 
