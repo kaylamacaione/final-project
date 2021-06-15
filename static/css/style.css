@@ -1,19 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+bgImageUrl = "../images/skyler-smith-9xdho4stJQ8-unsplash"
 
 /* Sticky Footer rules (https://getbootstrap.com/examples/sticky-footer/) */
 html {
   position: relative;
-  min-height: 100%;
-} */
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
 
 body {
   /* Padding bottom by footer height */
-  padding-bottom: 80px;
-}
-
-.login {
-  text-align: center;
-  padding-bottom: 40px;
+  /* padding-bottom: 80px; */
 }
 
 .btn {
@@ -23,10 +21,11 @@ body {
   border: whitesmoke;
   color: white;
   border-radius: 25px;
+  margin-top: 10px;
 }
 
 .btn:hover { 
-  background-color: rgb(50, 63, 80);
+  background-color: rgb(35, 44, 56);
 }
 
 h1 {
@@ -35,23 +34,106 @@ h1 {
 
 h3 {
   color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Open Sans", serif;
+  font-size: 16px;
+}
+
+.form {
+  text-align: center;
+  font-family: "Open Sans", serif;
+  /* padding-bottom: 40px; */
+}
+
+.form form {
+  margin: 40px auto;
+}
+
+label {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+select, input {
+  width: 215px;
+	margin-bottom: 10px;
+	background: rgb(243, 243, 243);
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 14px;
+	color: rgb(0, 0, 0);
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+#form-predict {
+  color: rgb(66, 66, 66);
+  font-family: "Open Sans", serif;
   font-size: 16px;
 }
 
 #footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
-  width: 100%; /* Set the fixed height of the footer here */
-  height: 10px;
-  padding-top: 20px;
-  padding-bottom: 40px;
-  text-align: center;
-  background-color: #f5f5f5;
+  width: 100%; 
+  height: 8px; /* Set the fixed height of the footer here */
+  padding-top: 10px;
+  padding-bottom: 30px;
+  padding-left: 10px;
+  text-align: left;
 }
 
 #footer p {
   margin: 0;
-  font-size: 18px;
+  font-size: 2px;
+  font-family: "Open Sans", serif;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.item {
+  width: 200px;
+  height: 200px;
+  margin: 50px auto;
+  padding-top: 75px;
+  background: #ccc;
+  text-align: center;
+  color: #FFF;
+  font-size: 3em;
+}
+
+.row {
+  margin-bottom: 100px;
+}
+
+/* Everything within container stays stationary for sliding background */
+.container {
+  overflow: hidden;
+}
+
+/* Background image */
+.sliding-background {
+  background: url("../images/skyler-smith-9xdho4stJQ8-unsplash.jpg") repeat-x;
+  height: 500px;
+  /* bg width = image width times 3 */
+  /* width: 5076px;  */
+  width: 9063px;
+  animation: slide 60s linear infinite;
+}
+
+@keyframes .slide {
+  0%{
+    transform: translate3d(0, 0, 0);
+  }
+  100%{
+    /* The image width */
+    /* transform: translate3d(-1692px, 0, 0);  */
+    transform: translate3d(-3021px, 0, 0); 
+  }
 }
 

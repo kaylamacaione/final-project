@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 import pickle
 import numpy as np
 import pandas as pd
+from flask import send_from_directory
 
 #################################################
 # Flask Setup
@@ -48,6 +49,12 @@ class Destinations(db.Model):
 @app.route("/")
 def home():
     return render_template("index.html")
+
+# Add favicon image to page
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 # Flask route to query data from SQLite database and output in json format
 @app.route("/api/dest_airports")
@@ -100,28 +107,37 @@ def predict():
         airports_only = result[1]
         airports_data.append(airports_only)
 
+    # Loop to find float values associated with airport codes for ML model input
     dest_val = []
-    for i in range((len(airports_data))):
+    for i in range(len(airports_data)):
         if dest_data[i]['DEST'] == form_values[0]:
             dest_val.append(dest_data[i]['DISTANCE'])
             dest_val.append(dest_data[i]['dest_longitude'])
             dest_val.append(dest_data[i]['dest_latitude'])
             dest_val.append(dest_data[i]['airport_name'])
 
+    # Order array for ML model input
     predict_array = []
     predict_array.append(form_values[2])
     predict_array.append(dest_val[0])
     predict_array.append(dest_val[1])
     predict_array.append(dest_val[2])
     predict_array.append(form_values[1])
-    
 
+    # Use numpy to build ML model input array
     prediction = model.predict([np.array(predict_array)])
-    output = prediction[0] 
+    output = prediction[0]
 
-    ################################################# UPDATE THIS LATER
-    
-    return render_template('index.html',prediction_text = 'We expect that your flight to {} in month {} and at time {} will be: {}'.format(dest_val[3],form_values[1],form_values[2],output))
-    
+    # Format month to string for render_template output
+    month_output = []
+    month_strings = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    for i, month in enumerate(month_strings, start=1):
+        if i == int(form_values[1]):
+            month_output.append(month)
+
+    # PREDICTION MODEL OUTPUT TO WEB PAGE
+    return render_template('index.html', prediction_text="Our model prediction for a flight to {} ({}) in {} (month {}) at time ({}):  {}".format(dest_val[3],form_values[0],month_output[0],form_values[1],form_values[2],output))
+
+  
 if __name__ == "__main__":
     app.run()
