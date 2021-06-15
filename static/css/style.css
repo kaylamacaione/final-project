@@ -25,6 +25,10 @@ body {
   border-radius: 25px;
 }
 
+.btn:hover { 
+  background-color: rgb(50, 63, 80);
+}
+
 h1 {
   color: rgb(79, 99, 126);
 }
@@ -50,3 +54,4 @@ h3 {
   margin: 0;
   font-size: 18px;
 }
+
