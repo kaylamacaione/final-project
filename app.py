@@ -121,7 +121,7 @@ def predict():
 
     ################################################# UPDATE THIS LATER
     
-    return render_template('index.html',prediction_text = 'We expect that your flight to {} in month {} and at time {} will be :{}'.format(dest_val[3],form_values[1],form_values[2],output))
+    return render_template('index.html',prediction_text = 'We expect that your flight to {} in month {} and at time {} will be: {}'.format(dest_val[3],form_values[1],form_values[2],output))
     
 if __name__ == "__main__":
     app.run()
