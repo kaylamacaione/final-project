@@ -3,9 +3,6 @@
 ## Deployment Link
 **[http://flight-delay-predictor-ord.herokuapp.com/](http://flight-delay-predictor-ord.herokuapp.com/)**
 
-
-
-
 ## Dataset 
 
 [Airline Delay and Cancellation Data, 2009 - 2018](https://www.kaggle.com/yuanyuwendymu/airline-delay-and-cancellation-data-2009-2018)
